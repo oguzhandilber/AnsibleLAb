@@ -1,0 +1,20 @@
+---
+- name: rootfs disk durumuna bak
+  shell: "df -h /"
+  args:
+    executable: "/bin/bash"
+  register: disk
+ 
+- name: output rootfs disk durumu
+  debug:
+    msg: "{{ disk.stdout_lines }}"
+
+- name: install rsyslog
+  apt:
+   name: rsyslog
+   state: present
+
+- name: rsyslog service restart
+  service: "name=rsyslog state=restarted" 
+
+

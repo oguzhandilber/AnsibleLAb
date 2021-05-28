@@ -1,0 +1,32 @@
+---
+- name: my playbook1
+  hosts: all
+  become: true
+  become_method: sudo
+  become_user: root
+  remote_user: oguzhan
+
+
+
+  tasks:
+  - name: rootfs disk durumuna bak
+    shell: "df -h /"
+    args:
+      executable: "/bin/bash"
+    register: disk
+    
+  - name: output rootfs disk durumu
+    debug:
+      msg: "{{ disk.stdout_lines }}"  
+- name: syslog installation
+  hosts: all
+  become: true
+  become_method: sudo
+  become_user: root
+  remote_user: oguzhan
+
+  tasks:
+  - name: install rsyslog
+    package:
+     name: rsyslog
+     state: latest

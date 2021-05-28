@@ -1,0 +1,16 @@
+---
+
+- name: install httpd
+  yum:
+   name: httpd
+   state: present
+
+- name: httpd inde.html customization
+  copy:
+    src: index.html
+    dest: /var/www/html/index.html
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart_httpd
+

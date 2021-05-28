@@ -1,0 +1,10 @@
+---
+
+timeout: 100
+apache2: |
+  {
+   "timeout: 100"
+   "server: ubuntu"
+   "user: apache"
+  }
+ 

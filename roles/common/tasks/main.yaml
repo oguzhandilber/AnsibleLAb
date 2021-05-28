@@ -1,0 +1,10 @@
+---
+#tasks file for akala-sep
+
+#-include tasks: variables.yml
+- include_tasks: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+- include_tasks: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
+

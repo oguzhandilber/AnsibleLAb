@@ -1,0 +1,17 @@
+- hosts: all
+  become: yes
+  roles:
+    - role: common
+  tags: commoncheck
+
+- hosts: webserver
+  become: yes
+  roles:
+    - role: webserver
+  tags: webserver-installation
+
+- hosts: all
+  become: yes
+  roles:
+    - role: useradd
+  tags: useradd 

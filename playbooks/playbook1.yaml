@@ -1,0 +1,37 @@
+---
+- name: my playbook1
+  hosts: all
+  become: true
+  become_method: sudo
+  become_user: root
+  remote_user: oguzhan
+
+
+
+  tasks:
+  - name: rootfs disk durumuna bak
+    shell: "df -h /"
+    args:
+      executable: "/bin/bash"
+    register: disk
+    
+  - name: output rootfs disk durumu
+    debug:
+      msg: "{{ disk.stdout_lines }}"  
+- name: syslog installation
+  hosts: all
+  become: true
+  become_method: sudo
+  become_user: root
+  remote_user: oguzhan
+    
+  tasks:
+  - name: installation debian rsyslog redhat
+    shell: yum install rsyslog -y
+    when: ansible_facts['os_family'] == "RedHat"
+  - name: installation debian rsyslog debian
+    shell: apt-get install rsyslog -y
+    when: ansible_facts['os_family'] == "Debian"
+  - name: rsyslog service restart
+    service: "name=rsyslog state=restarted"
+
